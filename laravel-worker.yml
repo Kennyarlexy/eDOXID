@@ -1,0 +1,29 @@
+apps:
+  - name: manajemen-usulan-queue-worker
+    script: artisan
+    exec_mode: fork
+    interpreter: php
+    instances: 1
+    args:
+      - queue:work
+      - --tries=5
+      - --sleep=1
+      - --daemon
+  - name: whatsapp-notification-queue-worker
+    script: artisan
+    exec_mode: fork
+    interpreter: php
+    instances: 1
+    args:
+      - queue:work
+      - --queue=whatsapp_notification_queue
+      - --tries=5
+      - --sleep=1
+      - --daemon
+  - name: manajemen-usulan-scheduler-worker
+    script: artisan
+    exec_mode: fork
+    interpreter: php
+    instances: 1
+    args:
+      - schedule:work
